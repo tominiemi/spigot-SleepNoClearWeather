@@ -15,23 +15,28 @@ public class SleepListener implements Listener {
 	static Boolean justSlept = false;
 	
 	@EventHandler
+	public static void onPlayerBedEnter(PlayerBedEnterEvent event) {
+		//Broadcast who went to bed
+		Bukkit.getServer().broadcastMessage(ChatColor.GRAY + event.getPlayer().getDisplayName() + " is sleeping...");
+	}
+	
+	@EventHandler
 	public static void onPlayerBedLeave(PlayerBedLeaveEvent event) {
-		Player player = event.getPlayer();
-		Bukkit.getServer().broadcastMessage(ChatColor.GRAY + player.getDisplayName() + " just slept");
-		justSlept = true;
+		if (!justSlept)
+			Bukkit.getServer().broadcastMessage(ChatColor.GRAY + event.getPlayer().getDisplayName() + " cancelled sleep");
 	}
 	
 	@EventHandler
 	public static void onTimeSkipEvent(TimeSkipEvent event) {
 		//If the reason for skipping wasn't sleeping, return
 		if (event.getSkipReason() != TimeSkipEvent.SkipReason.NIGHT_SKIP) return;
-		Bukkit.getServer().broadcastMessage(ChatColor.GRAY + "Time has been skipped");
-
+		justSlept = true; // Assuming this skipevent happened because someone slept
+		Bukkit.getServer().broadcastMessage(ChatColor.GRAY + "The night has been skipped");
 	}
 	
 	@EventHandler
 	public static void onWeatherChange(WeatherChangeEvent event) {
-		//Rudimentary way of cancelling weatherchange
+		//Rudimentary way of cancelling changing the weather
 		if (justSlept) {
 			event.setCancelled(true);
 			justSlept = false;
