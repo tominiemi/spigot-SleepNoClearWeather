@@ -10,7 +10,8 @@ public class SleepNoClearWeather extends JavaPlugin {
     // Fired when plugin is first enabled
     @Override
     public void onEnable() { 
-    	//yes
+    	//Registers an instance of the sleepListener class
+    	getServer().getPluginManager().registerEvents(new SleepListener(), this);
     }
     
     // Fired when plugin is disabled
