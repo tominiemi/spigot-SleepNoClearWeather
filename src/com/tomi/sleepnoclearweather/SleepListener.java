@@ -31,7 +31,19 @@ public class SleepListener implements Listener {
 	@EventHandler
 	public void onPlayerBedLeave(PlayerBedLeaveEvent event) {
 		player = event.getPlayer();
-		player.sendMessage("you have entered a bed"); //debug message
+		world = player.getWorld();
+		
+		if (event.isCancelled()) {
+			player.sendMessage("you left bed"); //debug message
+			return;
+		}
+			
+		player.sendMessage("you had nice nap");//debug message
+		if (stormDuration > 0) {
+			world.setStorm(true);
+			world.setWeatherDuration(stormDuration);
+		}
+		
 	}
 	
 }
