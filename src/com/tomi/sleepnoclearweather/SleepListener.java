@@ -12,12 +12,13 @@ import net.md_5.bungee.api.ChatColor;
 
 public class SleepListener implements Listener {
 	
-	static Boolean justSlept;
+	static Boolean justSlept = false;
 	
 	@EventHandler
 	public static void onPlayerBedLeave(PlayerBedLeaveEvent event) {
 		Player player = event.getPlayer();
 		Bukkit.getServer().broadcastMessage(ChatColor.GRAY + player.getDisplayName() + " just slept");
+		justSlept = true;
 	}
 	
 	@EventHandler
