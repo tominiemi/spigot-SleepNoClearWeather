@@ -1,7 +1,6 @@
 package com.tomi.sleepnoclearweather;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
@@ -16,8 +15,9 @@ public class SleepListener implements Listener {
 	
 	@EventHandler
 	public static void onPlayerBedEnter(PlayerBedEnterEvent event) {
-		//Broadcast who went to bed
-		Bukkit.getServer().broadcastMessage(ChatColor.GRAY + event.getPlayer().getDisplayName() + " is sleeping...");
+		//Broadcasts who went to bed
+		if (event.getBedEnterResult() == PlayerBedEnterEvent.BedEnterResult.OK)
+			Bukkit.getServer().broadcastMessage(ChatColor.GRAY + event.getPlayer().getDisplayName() + " is now sleeping...");
 	}
 	
 	@EventHandler
