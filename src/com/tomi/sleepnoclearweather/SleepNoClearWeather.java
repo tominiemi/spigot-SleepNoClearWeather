@@ -16,7 +16,7 @@ public class SleepNoClearWeather extends JavaPlugin {
     // Fired when plugin is disabled
     @Override
     public void onDisable() { 
-    	
+    	//no
     }
 	
 	
