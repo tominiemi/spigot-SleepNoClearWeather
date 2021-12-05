@@ -1,49 +1,40 @@
 package com.tomi.sleepnoclearweather;
 
-import org.bukkit.World;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
+import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.event.world.TimeSkipEvent;
+
+import net.md_5.bungee.api.ChatColor;
 
 public class SleepListener implements Listener {
 	
-	Player player;
-	World world;
-	
-	int stormDuration = 0;
+	static Boolean justSlept;
 	
 	@EventHandler
-	public void onPlayerBedEnter(PlayerBedEnterEvent event) {
-		//if sleep is not ok then return
-		if (event.getBedEnterResult() != PlayerBedEnterEvent.BedEnterResult.OK) return;
-		
-		player = event.getPlayer();
-		player.sendMessage("you have entered a bed"); //debug message
-		world = player.getWorld();
-		
-		//if raining or snowing, get how long it's going to rain or snow
-		if (world.hasStorm()) stormDuration = world.getWeatherDuration();
-		player.sendMessage("amount of weathertime remaining: " + stormDuration); //debug message
-		
+	public static void onPlayerBedLeave(PlayerBedLeaveEvent event) {
+		Player player = event.getPlayer();
+		Bukkit.getServer().broadcastMessage(ChatColor.GRAY + player.getDisplayName() + " just slept");
 	}
 	
 	@EventHandler
-	public void onPlayerBedLeave(PlayerBedLeaveEvent event) {
-		player = event.getPlayer();
-		world = player.getWorld();
-		
-		if (event.isCancelled()) {
-			player.sendMessage("you left bed"); //debug message
-			return;
+	public static void onTimeSkipEvent(TimeSkipEvent event) {
+		//If the reason for skipping wasn't sleeping, return
+		if (event.getSkipReason() != TimeSkipEvent.SkipReason.NIGHT_SKIP) return;
+		Bukkit.getServer().broadcastMessage(ChatColor.GRAY + "Time has been skipped");
+
+	}
+	
+	@EventHandler
+	public static void onWeatherChange(WeatherChangeEvent event) {
+		//Rudimentary way of cancelling weatherchange
+		if (justSlept) {
+			event.setCancelled(true);
+			justSlept = false;
 		}
-			
-		player.sendMessage("you had nice nap");//debug message
-		if (stormDuration > 0) {
-			world.setStorm(true);
-			world.setWeatherDuration(stormDuration);
-		}
-		
 	}
 	
 }
