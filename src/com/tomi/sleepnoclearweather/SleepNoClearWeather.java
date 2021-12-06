@@ -11,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class SleepNoClearWeather extends JavaPlugin {
 	private FileConfiguration config = getConfig();
 	
-    // Fired when plugin is first enabled
+    //Fired when plugin is first enabled
     @Override
     public void onEnable() { 
     	//Registers an instance of the sleepListener class
@@ -27,7 +27,7 @@ public class SleepNoClearWeather extends JavaPlugin {
     	getCommand("reload").setExecutor(new SleepCommands());
     }
     
-    // Fired when plugin is disabled
+    //Fired when plugin is disabled
     @Override
     public void onDisable() { }
 

@@ -21,7 +21,7 @@ public class SleepListener implements Listener {
 	 * @param message What message is being sent
 	 */
 	public static void sendEveryoneInWorldMessage(World world, String message) {
-		// Only if the config option is on
+		//Only if the config option is on
 		if (config.getBoolean("broadcastMessages"))
 			for (Player player : world.getPlayers()) player.sendMessage(message);
 	}

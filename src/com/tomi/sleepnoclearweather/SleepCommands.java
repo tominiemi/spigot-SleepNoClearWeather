@@ -10,7 +10,7 @@ import net.md_5.bungee.api.ChatColor;
 public class SleepCommands implements CommandExecutor {
 	protected static SleepNoClearWeather plugin;
 	
-    // This method is called, when somebody uses our command
+    //This method is called, when somebody uses our command
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         // reload config
