@@ -27,12 +27,14 @@ public class SleepNoClearWeather extends JavaPlugin {
     	getCommand("reload").setExecutor(new SleepCommands());
     }
     
-    public void reloadSleepConfig() {
-    	this.reloadConfig();
-    }
-    
     // Fired when plugin is disabled
     @Override
     public void onDisable() { }
 
+    public void reload() {
+    	reloadConfig();
+    	config = getConfig();
+    	SleepListener.config = config;
+    }
+    
 }

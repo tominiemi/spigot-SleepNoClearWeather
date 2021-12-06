@@ -22,7 +22,7 @@ public class SleepListener implements Listener {
 	 */
 	public static void sendEveryoneInWorldMessage(World world, String message) {
 		// Only if the config option is on
-		if (config.getBoolean("broadcastsOn"))
+		if (config.getBoolean("broadcastMessages"))
 			for (Player player : world.getPlayers()) player.sendMessage(message);
 	}
 	
@@ -30,8 +30,8 @@ public class SleepListener implements Listener {
 	public static void onPlayerBedEnter(PlayerBedEnterEvent event) {
 		//Broadcasts who went to bed
 		if (event.getBedEnterResult() == PlayerBedEnterEvent.BedEnterResult.OK) {
-			Player player = event.getPlayer();
-			String message = ChatColor.GRAY + player.getDisplayName() + " is now sleeping...";
+			Player sleepPlayer = event.getPlayer();
+			String message = ChatColor.GRAY + sleepPlayer.getDisplayName() + " is now sleeping...";
 			sendEveryoneInWorldMessage(event.getPlayer().getWorld(), message);
 		}
 	}
