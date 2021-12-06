@@ -1,6 +1,6 @@
 name: SleepNoClearWeather
 main: com.tomi.sleepnoclearweather.SleepNoClearWeather
-version: 1.0
+version: 1.1
 api-version: 1.18
 author: tomi
 commands:
