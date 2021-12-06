@@ -2,4 +2,9 @@ name: SleepNoClearWeather
 main: com.tomi.sleepnoclearweather.SleepNoClearWeather
 version: 1.0
 api-version: 1.18
+author: tomi
 commands:
+   reload:
+      description: Reloads the plugin config
+      usage: /<command>
+      premission: SleepNoClearWeather.reload

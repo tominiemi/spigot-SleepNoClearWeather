@@ -1,6 +1,7 @@
 package com.tomi.sleepnoclearweather;
 
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,8 +12,8 @@ import org.bukkit.event.world.TimeSkipEvent;
 import net.md_5.bungee.api.ChatColor;
 
 public class SleepListener implements Listener {
-	
 	private static Boolean justSlept = false;
+	protected static FileConfiguration config;
 	
 	/**
 	 * Sends a message to everyone in the given world
@@ -20,7 +21,9 @@ public class SleepListener implements Listener {
 	 * @param message What message is being sent
 	 */
 	public static void sendEveryoneInWorldMessage(World world, String message) {
-		for (Player player : world.getPlayers()) player.sendMessage(message);
+		// Only if the config option is on
+		if (config.getBoolean("broadcastsOn"))
+			for (Player player : world.getPlayers()) player.sendMessage(message);
 	}
 	
 	@EventHandler
